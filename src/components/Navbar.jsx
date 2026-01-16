@@ -6,7 +6,7 @@ const Navbar = () => {
       <b className='text-white text-sm sm:text-base md:text-lg'>Arogyapath</b>
       <img 
         className='h-10 w-10 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full' 
-        src="https://res.cloudinary.com/dme2vkioe/image/upload/v1768494903/Screenshot_2026-01-15_215539_bynd5s.png" 
+        src="https://res.cloudinary.com/dgvzeqveu/image/upload/v1768581453/Screenshot_2026-01-15_215539_mzrgnb.png" 
         alt="profile" 
       />
     </div>
