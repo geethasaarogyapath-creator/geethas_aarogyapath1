@@ -72,7 +72,6 @@ const Login = () => {
 
   return (
     <>
-      <Navbar />
       <div className='fixed inset-0 bg-black/60 flex items-center justify-center z-50'>
         <div className='w-[350px] bg-gray-100 rounded-xl shadow-md flex justify-center items-center'>
           <div className='w-full p-10'>

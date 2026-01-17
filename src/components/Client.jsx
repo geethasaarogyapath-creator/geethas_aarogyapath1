@@ -97,7 +97,6 @@ const Client = () => {
 
   return (
     <>
-      <Navbar />
       <div className="w-full min-h-screen bg-gray-100 p-8">
 
         {loading ? <Spinner /> : client.length === 0 ? (

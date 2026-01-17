@@ -85,7 +85,6 @@ const Clients = () => {
 
   return (
     <>
-      <Navbar />
       <div className="w-full pl-[5%] min-h-screen bg-gray-200 p-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">Clients</h1>
 
