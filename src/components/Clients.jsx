@@ -5,6 +5,8 @@ import { trashOutline } from 'ionicons/icons'
 import Swal from 'sweetalert2'
 import Navbar from './Navbar'
 import Spinner from './Spinner'
+import { io } from "socket.io-client";
+
 
 const Clients = () => {
 
@@ -12,6 +14,7 @@ const Clients = () => {
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState("")
   const nav = useNavigate()
+  const socket = io("https://aarogyapath.onrender.com");
 
   const getClients = async () => {
     try {
@@ -68,8 +71,16 @@ const Clients = () => {
   }
 
   useEffect(() => {
-    getClients()
-  }, [])
+  getClients(); 
+
+  socket.on("clientUpdated", () => {
+    getClients(); 
+  });
+
+  return () => {
+    socket.off("clientUpdated");
+  };
+}, []);
 
   const sortedClients = [...clients].sort((a, b) => {
     return (a.isvisited === true) - (b.isvisited === true)
