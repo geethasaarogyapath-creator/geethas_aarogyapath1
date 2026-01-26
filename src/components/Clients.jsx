@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from "react-router-dom"
 import { IonIcon } from '@ionic/react'
 import { trashOutline } from 'ionicons/icons'
@@ -7,14 +7,13 @@ import Navbar from './Navbar'
 import Spinner from './Spinner'
 import { io } from "socket.io-client";
 
-
 const Clients = () => {
 
   const [clients, setClients] = useState([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState("")
   const nav = useNavigate()
-  const socket = io("https://aarogyapath.onrender.com");
+  const socketRef = useRef(null)
 
   const getClients = async () => {
     try {
@@ -71,16 +70,18 @@ const Clients = () => {
   }
 
   useEffect(() => {
-  getClients(); 
+    getClients()
 
-  socket.on("clientUpdated", () => {
-    getClients(); 
-  });
+    socketRef.current = io("https://aarogyapath.onrender.com")
 
-  return () => {
-    socket.off("clientUpdated");
-  };
-}, []);
+    socketRef.current.on("clientUpdated", () => {
+      getClients()
+    })
+
+    return () => {
+      socketRef.current.disconnect()
+    }
+  }, [])
 
   const sortedClients = [...clients].sort((a, b) => {
     return (a.isvisited === true) - (b.isvisited === true)
@@ -97,7 +98,6 @@ const Clients = () => {
       <div className="w-full pl-[5%] min-h-screen bg-gray-200 p-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">Clients</h1>
 
-        {/* Search Bar */}
         <input
           type="text"
           placeholder="Search by name, gender, or profession..."
